@@ -14,9 +14,6 @@ pipeline {
         }
         success {
             echo 'I succeeeded!'
-            mail to: 'sgybupt@bupt.edu.cn',
-                 subject: "Success Pipeline",
-                 body: "Congras."
         }
         unstable {
             echo 'I am unstable :/'
