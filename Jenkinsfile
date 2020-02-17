@@ -1,15 +1,31 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('No-op') {
             steps {
-                sh 'pwd'
+                sh 'ls'
             }
         }
-        stage('Test') {
-            steps {
-                sh 'ls -alh'
-            }
+    }
+    post {
+        always {
+            echo 'One way or another, I have finished'
+            deleteDir() /* clean up our workspace */
+        }
+        success {
+            echo 'I succeeeded!'
+            mail to: 'sgybupt@bupt.edu.cn',
+                 subject: "Success Pipeline",
+                 body: "Congras."
+        }
+        unstable {
+            echo 'I am unstable :/'
+        }
+        failure {
+            echo 'I failed :('
+        }
+        changed {
+            echo 'Things were different before...'
         }
     }
 }
